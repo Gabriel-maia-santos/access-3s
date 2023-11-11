@@ -88,7 +88,7 @@ const data = [
     },
     {
         key: '2',
-        name: 'Jim Green',
+        name: 'Jim Gren',
         age: 42,
         address: 'London No. 1 Lake Park',
         tags: ['loser'],
