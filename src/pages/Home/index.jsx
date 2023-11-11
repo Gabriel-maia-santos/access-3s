@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Flex, Space, Table, Tag } from 'antd';
-import { Button, ButtonGroup } from "@nextui-org/react";
+import { Flex, Space, Table, Tag, Card, Button, Avatar } from 'antd';
+import { UserOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const justifyOptions = [
     'flex-start',
@@ -13,28 +13,45 @@ const justifyOptions = [
 ];
 const alignOptions = ['flex-start', 'center', 'flex-end'];
 
+import { Link } from 'react-router-dom';
+
 
 const columns = [
     {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
         render: (text) => <a>{text}</a>,
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: 'Nome',
+        dataIndex: 'name',
+        key: 'name',
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
     },
     {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
+        title: 'Setor',
+        dataIndex: 'setor',
+        key: 'setor',
+    },
+    {
+        title: 'Tipo usuario',
+        dataIndex: 'type',
+        key: 'type',
+    },
+    {
+        title: 'Recisao',
+        dataIndex: 'recisao',
+        key: 'recisao',
+    },
+    {
+        title: 'Colaborador',
+        dataIndex: 'colaborador',
+        key: 'colaborador',
         render: (_, { tags }) => (
             <>
                 {tags.map((tag) => {
@@ -56,8 +73,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
+                <a style={{ color: "red"} }><DeleteOutlined/></a>
             </Space>
         ),
     },
@@ -94,14 +110,29 @@ export const Home = () => {
     return (
             <body>
             <Flex style={{ backgroundColor: "#006FEE" }} justify={justify} align={alignItems}>
-                    <Button type="primary"></Button>
+                <Avatar style={{ margin: 10 }} size={40} icon={<UserOutlined />} />
                 <div style={{ margin: 10 }}>
-                    <Button style={{ margin: 10 }} type="primary">Ponto Digital</Button>
-                    <Button style={{ margin: 10 }} type="primary">Cadastro de usuario</Button>
+                    <Button style={{ margin: 10, backgroundColor: "#EE9D00" }} type="primary">Ponto Digital</Button>
+                    <Link to="/cadastro">
+                        <Button style={{ margin: 10, backgroundColor: "#EE9D00" }} type="primary">Cadastro de usuario</Button>
+                    </Link>
+
                 </div>
 
             </Flex>
-            <Table columns={columns} dataSource={data} />
+
+            <Flex style={{margin: 30}} justify={"center"} align={alignItems}>
+                <Card
+                    title="Tabela"
+                    style={{
+                        width: "80%",
+                    }}
+                >
+                <Table columns={columns} dataSource={data} />
+                </Card>
+            </Flex>
+
+           
 
         </body>
 
