@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Flex, Space, Table, Tag, Card, Button, Avatar } from 'antd';
 import { UserOutlined, DeleteOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const justifyOptions = [
     'flex-start',
@@ -106,7 +107,28 @@ const data = [
 export const Home = () => {
 
         const [justify, setJustify] = React.useState(justifyOptions[3]);
-        const [alignItems, setAlignItems] = React.useState(alignOptions[1]);
+    const [alignItems, setAlignItems] = React.useState(alignOptions[1]);
+    const [dados, setDados] = useState(null);
+
+    const fazerRequisicao = async () => {
+        try {
+            // Faz a requisição GET para a URL desejada
+            const resposta = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+
+            // Atualiza o estado com os dados da resposta
+            setDados(resposta.data);
+        } catch (erro) {
+            // Lidar com erros, se necessário
+            console.error('Erro na requisição:', erro.message);
+        }
+    };
+
+    // Use useEffect para fazer a requisição assim que o componente for montado
+    useEffect(() => {
+        fazerRequisicao();
+    }, []); // O segundo parâmetro [] significa que isso será executado apenas uma vez quando o componente for montado
+
+
     return (
             <body>
             <Flex style={{ backgroundColor: "#006FEE" }} justify={justify} align={alignItems}>
@@ -128,7 +150,7 @@ export const Home = () => {
                         width: "80%",
                     }}
                 >
-                <Table columns={columns} dataSource={data} />
+                    <Table columns={columns} dataSource={dados} />
                 </Card>
             </Flex>
 
